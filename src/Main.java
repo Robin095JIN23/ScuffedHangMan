@@ -13,8 +13,8 @@
 public class Main {
 
     public static void main(String[] args) {
-     Gameloop game = new Gameloop();
-        game.gameLoop();
+     Gameloop game = new Gameloop(); // Create a new instance of the game.
+        game.gameLoop();// Start the game.
     }
 }
 

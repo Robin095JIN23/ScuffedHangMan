@@ -14,6 +14,10 @@ import java.util.Random;
 public class WorldList {
     static ArrayList<String> words;
 
+    public static boolean contains(String letter) {
+        return false;
+
+    }
 
 
     public String getRandomWord() {
@@ -23,6 +27,9 @@ public class WorldList {
 
 
     }
+
+
+
 
 
     //Konstruktor
@@ -42,6 +49,9 @@ public class WorldList {
         words.add("skrivbord");
         words.add("skrivare");
         words.add("datorspel");
+        words.add("bokstäver");
+        words.add("bokstav");
+
 
 
 

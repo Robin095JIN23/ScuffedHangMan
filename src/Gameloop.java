@@ -14,13 +14,11 @@ public class Gameloop {
         System.out.println("Welcome to Hangman");
         System.out.println("Please enter your name");
 
-        Scanner input = new Scanner(System.in);
-        String name = input.nextLine();
+        Scanner input = new Scanner(System.in); //create a new scanner
+        String name = input.nextLine(); //get the name from the user
 
 
-
-        //add words to wordlist
-        WorldList worldList = new WorldList();
+        WorldList worldList = new WorldList(); //create a new instance of the worldlist class
 
 
         //game starts
@@ -30,62 +28,69 @@ public class Gameloop {
         System.out.println("You can guess one letter at a time");
 
 
-        //random word
-        String randomWord = worldList.getRandomWord();
-        System.out.println(randomWord);
-        //create a new word
-        Words word = new Words(randomWord);
+        String randomWord = worldList.getRandomWord(); //get a random word from the list
+
+        Words word = new Words(randomWord);//create a new instance of the word class
 
 
-        word.replaceWord();
-        //print the word
-        System.out.println(word.getWord());
-        //guesses left
-        int guessesLeft = 10;
-        //list with guessed letters
-        ArrayList<String> guessedLetters = new ArrayList<>();
+        word.replaceWord();//print the word
+
+        System.out.println(word.getWord()); //print the word
+        int guessesLeft = 7; //guesses allowed
 
 
 
-    for (int i = 0; true; i++) {
 
+        ArrayList<String> guessedLetters = new ArrayList<>();    //list with guessed letters
+
+
+
+    for(int i = 0; i < 7; i++) {      //loop for the game
         System.out.println("Guess a letter");
         String letter = input.nextLine();
-        guessedLetters.add(letter);
-        System.out.println(guessedLetters.get(i)); //print the guessed letters list
 
+        if (randomWord.contains(letter)) {  //check if the letter is in the word
 
-        System.out.println(guessedLetters);    //print the guessed letters list
+            word.replaceLetter(letter, randomWord);  //replace the letter in the word
 
+            System.out.println(word.getWord()); //get the word and print it
 
+            guessedLetters.add(letter); //add the letter to the list
 
+            sort(guessedLetters);//sort the list
 
-        if (randomWord.contains(letter)) { //// if the player find a letter in the word
-            System.out.println("You found a letter");
-            word.replaceLetter(letter); //replace the letter in the word
-            System.out.println(word.getWord()); //print the word
+            System.out.println(guessedLetters); //print the list
 
-          if(WorldList.words.contains(letter)) { //if the player guess a letter that is in the wordlist
-                System.out.println("You have already guessed this letter"); //print that the player has already guessed the letter
-                break;
+            //else guess is already in the list
+            if (guessedLetters.contains(letter)) {
+                System.out.println("You already guessed that letter");
             }
 
-
-            if (!word.getWord().contains("_")) { //if the player has found the word
-                System.out.println("You have found the word");
+            if (word.getWord().equals(randomWord)) { //check if the word is guessed
+                System.out.println("You guessed the word");
                 System.out.println("You won");
+                System.out.println("You had " + guessesLeft + " guesses left");
+                System.out.println(name+" you guessed the following letters: " + guessedLetters);
                 break;
             }
         } else {
-            System.out.println("You did not find a letter");
-            guessesLeft--;
-            System.out.println("You have " + guessesLeft + " guesses left");
-            if (guessesLeft == 0) {
+
+            System.out.println("The letter is not in the word");//if the letter is not in the word
+
+            guessedLetters.add(letter);//add the letter to the list
+
+            sort(guessedLetters); //sort the list
+            //print the list
+            System.out.println(guessedLetters); //print the list
+            guessesLeft--;  //subtract one guess
+            System.out.println("You have " + guessesLeft + " guesses left");  //print the guesses left
+
+            if (guessesLeft == 0) {  //check if the guesses are 0
                 System.out.println("You lost");
+                System.out.println("You guessed the following letters: " + guessedLetters);
                 break;
             }
         }
     }
+    }
 }
-}
-
