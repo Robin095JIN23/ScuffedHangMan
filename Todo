@@ -11,3 +11,14 @@ example : for(int i = 0; i < word.length(); i++){
         word.replace(word.charAt(i), letter);
     }
 }
+
+fixed by adding an index, so that it can find the letter. 
+public void replaceLetter(String letter, String randomWord) {
+        int index = randomWord.indexOf(letter); // Find letter in index.
+        while (index >= 0) { // While there is a letter in the word.
+            word = word.substring(0, index) + letter + word.substring(index + 1); // Replace the letter in the word.
+            index = randomWord.indexOf(letter, index + 1); // Find the next letter in the word.
+        }
+    }
+}
+
